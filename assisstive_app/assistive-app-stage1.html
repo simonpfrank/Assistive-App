@@ -422,57 +422,10 @@
 
         function initializeApp() {
             // Set up keyboard functionality
-            function setupKeyboard() {
-                const keys = document.querySelectorAll('.key');
+            setupKeyboard();
 
-                keys.forEach(key => {
-                    // Highlight on hover (single touch simulation)
-                    key.addEventListener('mouseenter', function () {
-                        this.style.backgroundColor = '#D8E6FF'; // Highlight color
-                        this.style.border = '2px solid #4361EE';
-                    });
-
-                    key.addEventListener('mouseleave', function () {
-                        this.style.backgroundColor = '';
-                        this.style.border = '';
-                    });
-
-                    // Double-click to add letter
-                    key.addEventListener('dblclick', function () {
-                        const keyValue = this.getAttribute('data-key');
-                        addLetterToSentence(keyValue);
-                        animateKeyPress(this);
-                    });
-
-                    // Keep existing touch handlers
-                    // Remove or comment out the single click handler
-                });
-            }
             // Set up common word buttons
-            function setupCommonWords() {
-                const wordButtons = document.querySelectorAll('.word-button');
-
-                wordButtons.forEach(button => {
-                    // Highlight on hover
-                    button.addEventListener('mouseenter', function () {
-                        this.style.transform = 'scale(1.05)';
-                    });
-
-                    button.addEventListener('mouseleave', function () {
-                        this.style.transform = '';
-                    });
-
-                    // Double-click to add word
-                    button.addEventListener('dblclick', function () {
-                        const word = this.textContent;
-                        addWordToSentence(word);
-                        animateKeyPress(this);
-                    });
-
-                    // Keep existing touch handlers
-                    // Remove or comment out the single click handler
-                });
-            }
+            setupCommonWords();
 
             // Set up assistant controls
             setupAssistantControls();
@@ -543,12 +496,24 @@
                     animateKeyPress(this);
                 });
 
-                // Mouse support for non-touch devices
-                key.addEventListener('click', function (e) {
+                // Highlight on hover (single touch simulation)
+                key.addEventListener('mouseenter', function () {
+                    this.style.backgroundColor = '#D8E6FF'; // Highlight color
+                    this.style.border = '2px solid #4361EE';
+                });
+
+                key.addEventListener('mouseleave', function () {
+                    this.style.backgroundColor = '';
+                    this.style.border = '';
+                });
+
+                // Double-click to add letter
+                key.addEventListener('dblclick', function () {
                     const keyValue = this.getAttribute('data-key');
                     addLetterToSentence(keyValue);
                     animateKeyPress(this);
                 });
+
             });
         }
 
@@ -564,8 +529,20 @@
                     animateKeyPress(this);
                 });
 
-                // Mouse support for non-touch devices
-                button.addEventListener('click', function (e) {
+                // Highlight on hover
+                button.addEventListener('mouseenter', function () {
+
+                    this.style.backgroundColor = '#D8E6FF'; // Highlight color
+                    this.style.border = '2px solid #4361EE';
+                });
+
+                button.addEventListener('mouseleave', function () {
+                    this.style.backgroundColor = '';
+                    this.style.border = '';
+                });
+
+                // Double-click to add word
+                button.addEventListener('dblclick', function () {
                     const word = this.textContent;
                     addWordToSentence(word);
                     animateKeyPress(this);
