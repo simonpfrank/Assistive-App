@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -15,8 +16,10 @@
         }
 
         body {
-            background-color: #F8F9FA;
-            color: #212529;
+            background-color: #FFF9F5;
+            /* Pastel theme background */
+            color: #383B53;
+            /* Pastel theme text color */
             overflow: hidden;
             position: fixed;
             width: 100%;
@@ -37,12 +40,20 @@
         }
 
         #assistant-controls {
-            background-color: #4361EE;
-            color: white;
+            background-color: #B8C0FF;
+            /* Pastel theme primary color */
+            color: #383B53;
+            /* Pastel theme text color */
             padding: 10px;
             z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            position: relative;
+        }
+
+        #assistant-controls.hidden {
+            transform: translateY(-100%);
+            box-shadow: none;
         }
 
         #assistant-controls h1 {
@@ -61,7 +72,8 @@
             background-color: #FFFFFF;
             border: none;
             border-radius: 8px;
-            color: #212529;
+            color: #383B53;
+            /* Pastel theme text color */
             padding: 10px 15px;
             font-size: 1rem;
             cursor: pointer;
@@ -71,12 +83,50 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .control-button:active {
             transform: scale(0.95);
             background-color: #E9ECEF;
+        }
+
+        #toggle-controls {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            background-color: #FFFFFF;
+            color: #383B53;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 110;
+        }
+
+        #show-controls {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 5px;
+            border-radius: 8px;
+            width: auto;
+            height: 30px;
+            background-color: #B8C0FF;
+            color: #383B53;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 110;
         }
 
         #sentence-display {
@@ -86,10 +136,11 @@
             padding: 15px;
             font-size: 1.2rem;
             min-height: 60px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             flex-shrink: 0;
             word-break: break-word;
+            transition: margin-top 0.3s ease;
         }
 
         #keyboard-container {
@@ -97,11 +148,14 @@
             display: flex;
             flex-direction: column;
             padding: 10px;
-            background-color: #E9ECEF;
+            background-color: #E6D7D0;
+            /* Pastel theme subtle accent */
             border-radius: 8px;
             margin: 0 10px 10px 10px;
             overflow-y: auto;
             transition: all 0.3s ease;
+            justify-content: flex-end;
+            /* Ensure content is docked at bottom */
         }
 
         .keyboard-row {
@@ -122,14 +176,17 @@
             justify-content: center;
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             transition: all 0.2s ease;
         }
 
-        .key:active, .key.active {
+        .key:active,
+        .key.active {
             transform: scale(0.95);
-            background-color: #D8E6FF;
-            border: 2px solid #4361EE;
+            background-color: #FFD6FF;
+            /* Pastel theme selected color */
+            border: 2px solid #B8C0FF;
+            /* Pastel theme primary color */
         }
 
         .key.space {
@@ -137,6 +194,14 @@
             aspect-ratio: auto;
             font-size: 1rem;
             color: #6C757D;
+        }
+
+        .zoom-small .key.space {
+            width: 40%;
+        }
+
+        .zoom-large .key.space {
+            width: 60%;
         }
 
         #common-words {
@@ -155,7 +220,7 @@
             text-align: center;
             flex-grow: 1;
             max-width: 150px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .word-button:active {
@@ -163,40 +228,67 @@
         }
 
         #word-yes {
-            background-color: #E8F5E4;
+            background-color: #E0F9B5;
+            /* Pastel green */
             border: 2px solid #90BE6D;
-            color: #212529;
+            color: #383B53;
         }
 
         #word-no {
-            background-color: #FDDFDF;
+            background-color: #FFDFD3;
+            /* Pastel red */
             border: 2px solid #F94144;
-            color: #212529;
+            color: #383B53;
         }
 
         #word-wrong {
-            background-color: #FFF3CD;
+            background-color: #FFDFBA;
+            /* Pastel yellow */
             border: 2px solid #F9C74F;
-            color: #212529;
+            color: #383B53;
         }
 
         /* Zoom Levels */
         .zoom-small .key {
             font-size: 1.2rem;
+            width: 7%;
+            min-width: 35px;
         }
-        
+
         .zoom-large .key {
             font-size: 1.8rem;
+            width: 9%;
+            min-width: 50px;
         }
 
         .zoom-small .word-button {
             font-size: 1rem;
             padding: 10px 15px;
+            max-width: 100px;
         }
-        
+
         .zoom-large .word-button {
             font-size: 1.4rem;
             padding: 20px 25px;
+            max-width: 180px;
+        }
+
+        .zoom-small #keyboard-container {
+            padding: 5px;
+            margin: 0 5px 5px 5px;
+        }
+
+        .zoom-large #keyboard-container {
+            padding: 15px;
+            margin: 0 15px 15px 15px;
+        }
+
+        .zoom-small .keyboard-row {
+            margin-bottom: 5px;
+        }
+
+        .zoom-large .keyboard-row {
+            margin-bottom: 15px;
         }
 
         /* Utility Classes */
@@ -219,23 +311,30 @@
 
         /* Desktop/Laptop Support */
         @media (hover: hover) {
-            .key:hover, .control-button:hover, .word-button:hover {
+
+            .key:hover,
+            .control-button:hover,
+            .word-button:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
         }
 
         /* Key Focus State for Keyboard Navigation */
-        .key:focus, .control-button:focus, .word-button:focus {
+        .key:focus,
+        .control-button:focus,
+        .word-button:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.5);
+            box-shadow: 0 0 0 3px rgba(184, 192, 255, 0.5);
+            /* Using pastel blue */
         }
     </style>
 </head>
+
 <body>
     <div id="app-container">
         <div id="error-indicator"></div>
-        
+
         <div id="assistant-controls">
             <h1>Assistive Communication App</h1>
             <div id="assistant-buttons">
@@ -245,10 +344,13 @@
                 <button id="btn-zoom-out" class="control-button">Zoom -</button>
                 <button id="btn-zoom-in" class="control-button">Zoom +</button>
             </div>
+            <div id="toggle-controls">▲</div>
         </div>
-        
+
+        <button id="show-controls">Show Controls</button>
+
         <div id="sentence-display"></div>
-        
+
         <div id="keyboard-container">
             <div class="keyboard-row">
                 <div class="key" data-key="Q" tabindex="0">Q</div>
@@ -286,7 +388,7 @@
             <div class="keyboard-row">
                 <div class="key space" data-key=" " tabindex="0">SPACE</div>
             </div>
-            
+
             <div id="common-words">
                 <div id="word-yes" class="word-button" tabindex="0">Yes</div>
                 <div id="word-no" class="word-button" tabindex="0">No</div>
@@ -300,7 +402,8 @@
         const appState = {
             currentSentence: '',
             currentWord: '',
-            zoomLevel: 'normal', // small, normal, large
+            zoomLevel: 5, // small, normal, large
+            controlsVisible: true,
             lastError: null
         };
 
@@ -308,9 +411,12 @@
         const sentenceDisplay = document.getElementById('sentence-display');
         const appContainer = document.getElementById('app-container');
         const errorIndicator = document.getElementById('error-indicator');
-        
+        const assistantControls = document.getElementById('assistant-controls');
+        const toggleControls = document.getElementById('toggle-controls');
+        const showControls = document.getElementById('show-controls');
+
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initializeApp();
             loadSavedState();
         });
@@ -318,15 +424,18 @@
         function initializeApp() {
             // Set up keyboard functionality
             setupKeyboard();
-            
+
             // Set up common word buttons
             setupCommonWords();
-            
+
             // Set up assistant controls
             setupAssistantControls();
-            
+
             // Set up keyboard navigation
             setupKeyboardNavigation();
+
+            // Set up controls toggle
+            setupControlsToggle();
         }
 
         function loadSavedState() {
@@ -337,13 +446,28 @@
                     appState.zoomLevel = savedZoom;
                     updateZoomLevel();
                 }
-                
+
                 // Load last sentence if exists
                 const savedSentence = localStorage.getItem('currentSentence');
                 if (savedSentence) {
                     appState.currentSentence = savedSentence;
                     updateSentenceDisplay();
                 }
+
+                // Load controls visibility state
+                const controlsVisible = localStorage.getItem('controlsVisible');
+                if (controlsVisible !== null) {
+                    appState.controlsVisible = controlsVisible === 'true';
+                    updateControlsVisibility();
+                }
+
+                // Initialize layout based on screen size
+                adjustKeyboardLayout();
+
+                // Add window resize listener
+                window.addEventListener('resize', function () {
+                    adjustKeyboardLayout();
+                });
             } catch (error) {
                 showError('Error loading saved state');
                 console.error('Error loading saved state:', error);
@@ -354,6 +478,7 @@
             try {
                 localStorage.setItem('zoomLevel', appState.zoomLevel);
                 localStorage.setItem('currentSentence', appState.currentSentence);
+                localStorage.setItem('controlsVisible', appState.controlsVisible);
             } catch (error) {
                 showError('Error saving state');
                 console.error('Error saving state:', error);
@@ -362,78 +487,106 @@
 
         function setupKeyboard() {
             const keys = document.querySelectorAll('.key');
-            
+
             keys.forEach(key => {
                 // Touch support
-                key.addEventListener('touchstart', function(e) {
+                key.addEventListener('touchstart', function (e) {
                     e.preventDefault(); // Prevent double tap zoom
                     const keyValue = this.getAttribute('data-key');
                     addLetterToSentence(keyValue);
                     animateKeyPress(this);
                 });
-                
+
                 // Mouse support for non-touch devices
-                key.addEventListener('click', function(e) {
+                key.addEventListener('click', function (e) {
                     const keyValue = this.getAttribute('data-key');
                     addLetterToSentence(keyValue);
                     animateKeyPress(this);
                 });
             });
         }
-        
+
         function setupCommonWords() {
             const wordButtons = document.querySelectorAll('.word-button');
-            
+
             wordButtons.forEach(button => {
                 // Touch support
-                button.addEventListener('touchstart', function(e) {
+                button.addEventListener('touchstart', function (e) {
                     e.preventDefault(); // Prevent double tap zoom
                     const word = this.textContent;
                     addWordToSentence(word);
                     animateKeyPress(this);
                 });
-                
+
                 // Mouse support for non-touch devices
-                button.addEventListener('click', function(e) {
+                button.addEventListener('click', function (e) {
                     const word = this.textContent;
                     addWordToSentence(word);
                     animateKeyPress(this);
                 });
             });
         }
-        
+
         function setupAssistantControls() {
             // Clear button
-            document.getElementById('btn-clear').addEventListener('click', function() {
+            document.getElementById('btn-clear').addEventListener('click', function () {
                 clearSentence();
             });
-            
+
             // Delete button
-            document.getElementById('btn-delete').addEventListener('click', function() {
+            document.getElementById('btn-delete').addEventListener('click', function () {
                 deleteLastCharacter();
             });
-            
+
             // Speak button
-            document.getElementById('btn-speak').addEventListener('click', function() {
+            document.getElementById('btn-speak').addEventListener('click', function () {
                 speakSentence();
             });
-            
+
             // Zoom controls
-            document.getElementById('btn-zoom-in').addEventListener('click', function() {
+            document.getElementById('btn-zoom-in').addEventListener('click', function () {
                 zoomIn();
             });
-            
-            document.getElementById('btn-zoom-out').addEventListener('click', function() {
+
+            document.getElementById('btn-zoom-out').addEventListener('click', function () {
                 zoomOut();
             });
         }
-        
+
+        function setupControlsToggle() {
+            toggleControls.addEventListener('click', function () {
+                appState.controlsVisible = false;
+                updateControlsVisibility();
+                saveState();
+            });
+
+            showControls.addEventListener('click', function () {
+                appState.controlsVisible = true;
+                updateControlsVisibility();
+                saveState();
+            });
+        }
+
+        function updateControlsVisibility() {
+            if (appState.controlsVisible) {
+                assistantControls.classList.remove('hidden');
+                showControls.style.display = 'none';
+                toggleControls.textContent = '▲';
+                sentenceDisplay.style.marginTop = '10px';
+            } else {
+                assistantControls.classList.add('hidden');
+                showControls.style.display = 'flex';
+                toggleControls.textContent = '▼';
+                sentenceDisplay.style.marginTop = '40px';
+            }
+        }
+
         function setupKeyboardNavigation() {
             // Handle physical keyboard input
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 // Get the pressed key
                 const key = e.key.toUpperCase();
-                
+
                 // Check if it's a letter, space, or period
                 if (/^[A-Z]$/.test(key) || key === ' ' || key === '.') {
                     // Find and activate the corresponding on-screen key
@@ -457,23 +610,23 @@
             updateSentenceDisplay();
             saveState();
         }
-        
+
         function addWordToSentence(word) {
             // Check if we need to add a space before the word
-            if (appState.currentSentence.length > 0 && 
+            if (appState.currentSentence.length > 0 &&
                 !appState.currentSentence.endsWith(' ')) {
                 appState.currentSentence += ' ';
             }
-            
+
             appState.currentSentence += word;
-            
+
             // Add a space after the word
             appState.currentSentence += ' ';
-            
+
             updateSentenceDisplay();
             saveState();
         }
-        
+
         function deleteLastCharacter() {
             if (appState.currentSentence.length > 0) {
                 appState.currentSentence = appState.currentSentence.slice(0, -1);
@@ -481,19 +634,19 @@
                 saveState();
             }
         }
-        
+
         function clearSentence() {
             appState.currentSentence = '';
             updateSentenceDisplay();
             saveState();
         }
-        
+
         function updateSentenceDisplay() {
             sentenceDisplay.textContent = appState.currentSentence;
             // Auto-scroll to bottom if content overflows
             sentenceDisplay.scrollTop = sentenceDisplay.scrollHeight;
         }
-        
+
         function speakSentence() {
             try {
                 if ('speechSynthesis' in window) {
@@ -508,58 +661,87 @@
                 console.error('Speech synthesis error:', error);
             }
         }
-        
+
         function zoomIn() {
-            if (appState.zoomLevel === 'small') {
-                appState.zoomLevel = 'normal';
-            } else if (appState.zoomLevel === 'normal') {
-                appState.zoomLevel = 'large';
+            if (appState.zoomLevel < 9) {
+                appState.zoomLevel++;
+                updateZoomLevel();
+                saveState();
             }
-            updateZoomLevel();
-            saveState();
         }
-        
+
         function zoomOut() {
-            if (appState.zoomLevel === 'large') {
-                appState.zoomLevel = 'normal';
-            } else if (appState.zoomLevel === 'normal') {
-                appState.zoomLevel = 'small';
+            if (appState.zoomLevel > 1) {
+                appState.zoomLevel--;
+                updateZoomLevel();
+                saveState();
             }
-            updateZoomLevel();
-            saveState();
         }
-        
+
+        // Replace the updateZoomLevel function:
         function updateZoomLevel() {
-            // Remove all zoom classes
-            appContainer.classList.remove('zoom-small', 'zoom-large');
-            
-            // Add appropriate class
-            if (appState.zoomLevel === 'small') {
-                appContainer.classList.add('zoom-small');
-            } else if (appState.zoomLevel === 'large') {
-                appContainer.classList.add('zoom-large');
+            // Calculate scale factor (0.7 to 1.3)
+            const scaleFactor = 0.7 + (appState.zoomLevel - 1) * 0.075;
+
+            // Apply scale to key elements
+            const keys = document.querySelectorAll('.key');
+            keys.forEach(key => {
+                key.style.fontSize = `${1.5 * scaleFactor}rem`;
+                key.style.width = `${8 * scaleFactor}%`;
+                key.style.minWidth = `${40 * scaleFactor}px`;
+            });
+
+            // Handle space key separately
+            const spaceKey = document.querySelector('.key.space');
+            if (spaceKey) {
+                spaceKey.style.width = `${50 * scaleFactor}%`;
+                spaceKey.style.fontSize = `${1 * scaleFactor}rem`;
+            }
+
+            // Scale word buttons
+            const wordButtons = document.querySelectorAll('.word-button');
+            wordButtons.forEach(button => {
+                button.style.fontSize = `${1.2 * scaleFactor}rem`;
+                button.style.padding = `${15 * scaleFactor}px ${20 * scaleFactor}px`;
+            });
+        }
+
+        function adjustKeyboardLayout() {
+            // Additional layout adjustments based on zoom level and screen size
+            const keyboardContainer = document.getElementById('keyboard-container');
+            const commonWords = document.getElementById('common-words');
+
+            // Reset any inline styles
+            commonWords.style.flexWrap = '';
+
+            // Apply specific adjustments for different zoom levels
+            if (appState.zoomLevel === 'large') {
+                // For large zoom on smaller screens, wrap common words
+                if (window.innerWidth < 768) {
+                    commonWords.style.flexWrap = 'wrap';
+                }
             }
         }
-        
+
         function animateKeyPress(element) {
             // Add active class
             element.classList.add('active');
-            
+
             // Remove after animation completes
             setTimeout(() => {
                 element.classList.remove('active');
             }, 200);
         }
-        
+
         function showError(message) {
             appState.lastError = message;
-            
+
             // Show error indicator
             errorIndicator.style.display = 'block';
-            
+
             // Log error to console
             console.error('App Error:', message);
-            
+
             // Hide after 3 seconds
             setTimeout(() => {
                 errorIndicator.style.display = 'none';
@@ -567,4 +749,5 @@
         }
     </script>
 </body>
+
 </html>
