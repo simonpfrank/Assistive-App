@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="600" fill="#F8F9FA" />
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold" fill="#212529">Color Theme Variations</text>
+  
+  <!-- Theme 1: Vibrant -->
+  <text x="200" y="80" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#212529">Vibrant Theme</text>
+  
+  <!-- Theme 1 App Sample -->
+  <rect x="50" y="100" width="300" height="200" rx="8" ry="8" fill="#FFFFFF" stroke="#DEE2E6" stroke-width="2" />
+  
+  <!-- Top Bar -->
+  <rect x="50" y="100" width="300" height="40" rx="8" ry="8" fill="#4361EE" />
+  <text x="65" y="125" font-family="Arial" font-size="14" font-weight="bold" fill="#FFFFFF">Controls</text>
+  
+  <!-- Buttons -->
+  <rect x="170" y="105" width="50" height="30" rx="6" ry="6" fill="#3A0CA3" />
+  <text x="195" y="125" font-family="Arial" font-size="10" text-anchor="middle" fill="#FFFFFF">Mode</text>
+  
+  <rect x="230" y="105" width="50" height="30" rx="6" ry="6" fill="#7209B7" />
+  <text x="255" y="125" font-family="Arial" font-size="10" text-anchor="middle" fill="#FFFFFF">Scan</text>
+  
+  <!-- Content Area -->
+  <rect x="60" y="150" width="280" height="30" rx="4" ry="4" fill="#F8F9FA" stroke="#DEE2E6" stroke-width="1" />
+  <text x="70" y="170" font-family="Arial" font-size="12" fill="#212529">Message text here</text>
+  
+  <!-- Sample Keys -->
+  <rect x="80" y="190" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#DEE2E6" stroke-width="1" />
+  <text x="100" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#212529">A</text>
+  
+  <rect x="130" y="190" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#DEE2E6" stroke-width="1" />
+  <text x="150" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#212529">B</text>
+  
+  <rect x="180" y="190" width="40" height="40" rx="6" ry="6" fill="#4361EE" />
+  <text x="200" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#FFFFFF">C</text>
+  
+  <rect x="230" y="190" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#DEE2E6" stroke-width="1" />
+  <text x="250" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#212529">D</text>
+  
+  <!-- Word Buttons -->
+  <rect x="70" y="240" width="60" height="30" rx="6" ry="6" fill="#E8F5E4" stroke="#90BE6D" stroke-width="2" />
+  <text x="100" y="260" font-family="Arial" font-size="12" text-anchor="middle" fill="#212529">Yes</text>
+  
+  <rect x="140" y="240" width="60" height="30" rx="6" ry="6" fill="#FDDFDF" stroke="#F94144" stroke-width="2" />
+  <text x="170" y="260" font-family="Arial" font-size="12" text-anchor="middle" fill="#212529">No</text>
+  
+  <rect x="210" y="240" width="60" height="30" rx="6" ry="6" fill="#DEF3FB" stroke="#4CC9F0" stroke-width="2" />
+  <text x="240" y="260" font-family="Arial" font-size="12" text-anchor="middle" fill="#212529">Help</text>
+  
+  <!-- Theme 1 Color Swatches -->
+  <rect x="50" y="310" width="40" height="40" rx="4" ry="4" fill="#4361EE" />
+  <rect x="100" y="310" width="40" height="40" rx="4" ry="4" fill="#3A0CA3" />
+  <rect x="150" y="310" width="40" height="40" rx="4" ry="4" fill="#7209B7" />
+  <rect x="200" y="310" width="40" height="40" rx="4" ry="4" fill="#F72585" />
+  <rect x="250" y="310" width="40" height="40" rx="4" ry="4" fill="#4CC9F0" />
+  <rect x="300" y="310" width="40" height="40" rx="4" ry="4" fill="#90BE6D" />
+  
+  <!-- Theme 2: Soft & Friendly -->
+  <text x="600" y="80" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#212529">Soft & Friendly Theme</text>
+  
+  <!-- Theme 2 App Sample -->
+  <rect x="450" y="100" width="300" height="200" rx="8" ry="8" fill="#FFFFFF" stroke="#DEE2E6" stroke-width="2" />
+  
+  <!-- Top Bar -->
+  <rect x="450" y="100" width="300" height="40" rx="8" ry="8" fill="#4FACFE" />
+  <text x="465" y="125" font-family="Arial" font-size="14" font-weight="bold" fill="#FFFFFF">Controls</text>
+  
+  <!-- Buttons -->
+  <rect x="570" y="105" width="50" height="30" rx="6" ry="6" fill="#00F2FE" />
+  <text x="595" y="125" font-family="Arial" font-size="10" text-anchor="middle" fill="#212529">Mode</text>
+  
+  <rect x="630" y="105" width="50" height="30" rx="6" ry="6" fill="#9CECFB" />
+  <text x="655" y="125" font-family="Arial" font-size="10" text-anchor="middle" fill="#212529">Scan</text>
+  
+  <!-- Content Area -->
+  <rect x="460" y="150" width="280" height="30" rx="4" ry="4" fill="#F8F9FA" stroke="#DEE2E6" stroke-width="1" />
+  <text x="470" y="170" font-family="Arial" font-size="12" fill="#212529">Message text here</text>
+  
+  <!-- Sample Keys -->
+  <rect x="480" y="190" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#DEE2E6" stroke-width="1" />
+  <text x="500" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#212529">A</text>
+  
+  <rect x="530" y="190" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#DEE2E6" stroke-width="1" />
+  <text x="550" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#212529">B</text>
+  
+  <rect x="580" y="190" width="40" height="40" rx="6" ry="6" fill="#4FACFE" />
+  <text x="600" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#FFFFFF">C</text>
+  
+  <rect x="630" y="190" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#DEE2E6" stroke-width="1" />
+  <text x="650" y="215" font-family="Arial" font-size="16" text-anchor="middle" fill="#212529">D</text>
+  
+  <!-- Word Buttons -->
+  <rect x="470" y="240" width="60" height="30" rx="6" ry="6" fill="#D8F8E4" stroke="#65C6AA" stroke-width="2" />
+  <text x="500" y="260" font-family="Arial" font-size="12" text-anchor="middle" fill="#212529">Yes</text>
+  
+  <rect x="540" y="240" width="60" height="30" rx="6" ry="6" fill="#FFE5E5" stroke="#FF9A9A" stroke-width="2" />
+  <text x="570" y="260" font-family="Arial" font-size="12" text-anchor="middle" fill="#212529">No</text>
+  
+  <rect x="610" y="240" width="60" height="30" rx="6" ry="6" fill="#E6F7FF" stroke="#65C6F7" stroke-width="2" />
+  <text x="640" y="260" font-family="Arial" font-size="12" text-anchor="middle" fill="#212529">Help</text>
+  
+  <!-- Theme 2 Color Swatches -->
+  <rect x="450" y="310" width="40" height="40" rx="4" ry="4" fill="#4FACFE" />
+  <rect x="500" y="310" width="40" height="40" rx="4" ry="4" fill="#00F2FE" />
+  <rect x="550" y="310" width="40" height="40" rx="4" ry="4" fill="#65C6AA" />
+  <rect x="600" y="310" width="40" height="40" rx="4" ry="4" fill="#FF9A9A" />
+  <rect x="650" y="310" width="40" height="40" rx="4" ry="4" fill="#9CECFB" />
+  <rect x="700" y="310" width="40" height="40" rx="4" ry="4" fill="#FFCDA5" />
+  
+  <!-- Theme 3: High Contrast -->
+  <text x="200" y="380" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#212529">High Contrast Theme</text>
+  
+  <!-- Theme 3 App Sample -->
+  <rect x="50" y="400" width="300" height="180" rx="8" ry="8" fill="#000000" stroke="#FFFFFF" stroke-width="2" />
+  
+  <!-- Top Bar -->
+  <rect x="50" y="400" width="300" height="40" rx="8" ry="8" fill="#0028FF" />
+  <text x="65" y="425" font-family="Arial" font-size="14" font-weight="bold" fill="#FFFFFF">Controls</text>
+  
+  <!-- Buttons -->
+  <rect x="170" y="405" width="50" height="30" rx="6" ry="6" fill="#FFFFFF" />
+  <text x="195" y="425" font-family="Arial" font-size="10" text-anchor="middle" fill="#000000">Mode</text>
+  
+  <rect x="230" y="405" width="50" height="30" rx="6" ry="6" fill="#00D1FF" />
+  <text x="255" y="425" font-family="Arial" font-size="10" text-anchor="middle" fill="#000000">Scan</text>
+  
+  <!-- Content Area -->
+  <rect x="60" y="450" width="280" height="30" rx="4" ry="4" fill="#000000" stroke="#FFFFFF" stroke-width="2" />
+  <text x="70" y="470" font-family="Arial" font-size="12" fill="#FFFFFF">Message text here</text>
+  
+  <!-- Sample Keys -->
+  <rect x="80" y="490" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#000000" stroke-width="2" />
+  <text x="100" y="515" font-family="Arial" font-size="16" text-anchor="middle" fill="#000000">A</text>
+  
+  <rect x="130" y="490" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#000000" stroke-width="2" />
+  <text x="150" y="515" font-family="Arial" font-size="16" text-anchor="middle" fill="#000000">B</text>
+  
+  <rect x="180" y="490" width="40" height="40" rx="6" ry="6" fill="#0028FF" stroke="#FFFFFF" stroke-width="2" />
+  <text x="200" y="515" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#FFFFFF">C</text>
+  
+  <rect x="230" y="490" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#000000" stroke-width="2" />
+  <text x="250" y="515" font-family="Arial" font-size="16" text-anchor="middle" fill="#000000">D</text>
+  
+  <!-- Theme 3 Color Swatches -->
+  <rect x="50" y="550" width="40" height="40" rx="4" ry="4" fill="#0028FF" />
+  <rect x="100" y="550" width="40" height="40" rx="4" ry="4" fill="#FFFFFF" />
+  <rect x="150" y="550" width="40" height="40" rx="4" ry="4" fill="#00D1FF" />
+  <rect x="200" y="550" width="40" height="40" rx="4" ry="4" fill="#FF0000" />
+  <rect x="250" y="550" width="40" height="40" rx="4" ry="4" fill="#FFFF00" />
+  <rect x="300" y="550" width="40" height="40" rx="4" ry="4" fill="#00FF00" />
+  
+  <!-- Theme 4: Pastel -->
+  <text x="600" y="380" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#212529">Pastel Theme</text>
+  
+  <!-- Theme 4 App Sample -->
+  <rect x="450" y="400" width="300" height="180" rx="8" ry="8" fill="#FFF9F5" stroke="#E6D7D0" stroke-width="2" />
+  
+  <!-- Top Bar -->
+  <rect x="450" y="400" width="300" height="40" rx="8" ry="8" fill="#B8C0FF" />
+  <text x="465" y="425" font-family="Arial" font-size="14" font-weight="bold" fill="#383B53">Controls</text>
+  
+  <!-- Buttons -->
+  <rect x="570" y="405" width="50" height="30" rx="6" ry="6" fill="#FFD6FF" />
+  <text x="595" y="425" font-family="Arial" font-size="10" text-anchor="middle" fill="#383B53">Mode</text>
+  
+  <rect x="630" y="405" width="50" height="30" rx="6" ry="6" fill="#C4FAF8" />
+  <text x="655" y="425" font-family="Arial" font-size="10" text-anchor="middle" fill="#383B53">Scan</text>
+  
+  <!-- Content Area -->
+  <rect x="460" y="450" width="280" height="30" rx="4" ry="4" fill="#FFF9F5" stroke="#E6D7D0" stroke-width="1" />
+  <text x="470" y="470" font-family="Arial" font-size="12" fill="#383B53">Message text here</text>
+  
+  <!-- Sample Keys -->
+  <rect x="480" y="490" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#E6D7D0" stroke-width="1" />
+  <text x="500" y="515" font-family="Arial" font-size="16" text-anchor="middle" fill="#383B53">A</text>
+  
+  <rect x="530" y="490" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#E6D7D0" stroke-width="1" />
+  <text x="550" y="515" font-family="Arial" font-size="16" text-anchor="middle" fill="#383B53">B</text>
+  
+  <rect x="580" y="490" width="40" height="40" rx="6" ry="6" fill="#B8C0FF" />
+  <text x="600" y="515" font-family="Arial" font-size="16" text-anchor="middle" fill="#383B53">C</text>
+  
+  <rect x="630" y="490" width="40" height="40" rx="6" ry="6" fill="#FFFFFF" stroke="#E6D7D0" stroke-width="1" />
+  <text x="650" y="515" font-family="Arial" font-size="16" text-anchor="middle" fill="#383B53">D</text>
+  
+  <!-- Theme 4 Color Swatches -->
+  <rect x="450" y="550" width="40" height="40" rx="4" ry="4" fill="#B8C0FF" />
+  <rect x="500" y="550" width="40" height="40" rx="4" ry="4" fill="#FFD6FF" />
+  <rect x="550" y="550" width="40" height="40" rx="4" ry="4" fill="#C4FAF8" />
+  <rect x="600" y="550" width="40" height="40" rx="4" ry="4" fill="#FFDFBA" />
+  <rect x="650" y="550" width="40" height="40" rx="4" ry="4" fill="#FFDFD3" />
+  <rect x="700" y="550" width="40" height="40" rx="4" ry="4" fill="#E0F9B5" />

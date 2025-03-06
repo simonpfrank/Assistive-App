@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Assistive Communication App</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F8F9FA;
+            color: #212529;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Layout Containers */
+        #app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+            max-width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        #assistant-controls {
+            background-color: #4361EE;
+            color: white;
+            padding: 10px;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        #assistant-controls h1 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        #assistant-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .control-button {
+            background-color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            color: #212529;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 50px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .control-button:active {
+            transform: scale(0.95);
+            background-color: #E9ECEF;
+        }
+
+        #sentence-display {
+            background-color: white;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 15px;
+            font-size: 1.2rem;
+            min-height: 60px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            flex-shrink: 0;
+            word-break: break-word;
+        }
+
+        #keyboard-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            background-color: #E9ECEF;
+            border-radius: 8px;
+            margin: 0 10px 10px 10px;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .key {
+            background-color: white;
+            border-radius: 8px;
+            margin: 0 5px;
+            width: 8%;
+            min-width: 40px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .key:active, .key.active {
+            transform: scale(0.95);
+            background-color: #D8E6FF;
+            border: 2px solid #4361EE;
+        }
+
+        .key.space {
+            width: 50%;
+            aspect-ratio: auto;
+            font-size: 1rem;
+            color: #6C757D;
+        }
+
+        #common-words {
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
+            gap: 10px;
+        }
+
+        .word-button {
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            flex-grow: 1;
+            max-width: 150px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .word-button:active {
+            transform: scale(0.95);
+        }
+
+        #word-yes {
+            background-color: #E8F5E4;
+            border: 2px solid #90BE6D;
+            color: #212529;
+        }
+
+        #word-no {
+            background-color: #FDDFDF;
+            border: 2px solid #F94144;
+            color: #212529;
+        }
+
+        #word-wrong {
+            background-color: #FFF3CD;
+            border: 2px solid #F9C74F;
+            color: #212529;
+        }
+
+        /* Zoom Levels */
+        .zoom-small .key {
+            font-size: 1.2rem;
+        }
+        
+        .zoom-large .key {
+            font-size: 1.8rem;
+        }
+
+        .zoom-small .word-button {
+            font-size: 1rem;
+            padding: 10px 15px;
+        }
+        
+        .zoom-large .word-button {
+            font-size: 1.4rem;
+            padding: 20px 25px;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Error Indicator */
+        #error-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: #F94144;
+            border-radius: 50%;
+            display: none;
+            z-index: 1000;
+        }
+
+        /* Desktop/Laptop Support */
+        @media (hover: hover) {
+            .key:hover, .control-button:hover, .word-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* Key Focus State for Keyboard Navigation */
+        .key:focus, .control-button:focus, .word-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <div id="error-indicator"></div>
+        
+        <div id="assistant-controls">
+            <h1>Assistive Communication App</h1>
+            <div id="assistant-buttons">
+                <button id="btn-clear" class="control-button">Clear</button>
+                <button id="btn-delete" class="control-button">Delete</button>
+                <button id="btn-speak" class="control-button">🔊 Speak</button>
+                <button id="btn-zoom-out" class="control-button">Zoom -</button>
+                <button id="btn-zoom-in" class="control-button">Zoom +</button>
+            </div>
+        </div>
+        
+        <div id="sentence-display"></div>
+        
+        <div id="keyboard-container">
+            <div class="keyboard-row">
+                <div class="key" data-key="Q" tabindex="0">Q</div>
+                <div class="key" data-key="W" tabindex="0">W</div>
+                <div class="key" data-key="E" tabindex="0">E</div>
+                <div class="key" data-key="R" tabindex="0">R</div>
+                <div class="key" data-key="T" tabindex="0">T</div>
+                <div class="key" data-key="Y" tabindex="0">Y</div>
+                <div class="key" data-key="U" tabindex="0">U</div>
+                <div class="key" data-key="I" tabindex="0">I</div>
+                <div class="key" data-key="O" tabindex="0">O</div>
+                <div class="key" data-key="P" tabindex="0">P</div>
+            </div>
+            <div class="keyboard-row">
+                <div class="key" data-key="A" tabindex="0">A</div>
+                <div class="key" data-key="S" tabindex="0">S</div>
+                <div class="key" data-key="D" tabindex="0">D</div>
+                <div class="key" data-key="F" tabindex="0">F</div>
+                <div class="key" data-key="G" tabindex="0">G</div>
+                <div class="key" data-key="H" tabindex="0">H</div>
+                <div class="key" data-key="J" tabindex="0">J</div>
+                <div class="key" data-key="K" tabindex="0">K</div>
+                <div class="key" data-key="L" tabindex="0">L</div>
+            </div>
+            <div class="keyboard-row">
+                <div class="key" data-key="Z" tabindex="0">Z</div>
+                <div class="key" data-key="X" tabindex="0">X</div>
+                <div class="key" data-key="C" tabindex="0">C</div>
+                <div class="key" data-key="V" tabindex="0">V</div>
+                <div class="key" data-key="B" tabindex="0">B</div>
+                <div class="key" data-key="N" tabindex="0">N</div>
+                <div class="key" data-key="M" tabindex="0">M</div>
+                <div class="key" data-key="." tabindex="0">.</div>
+            </div>
+            <div class="keyboard-row">
+                <div class="key space" data-key=" " tabindex="0">SPACE</div>
+            </div>
+            
+            <div id="common-words">
+                <div id="word-yes" class="word-button" tabindex="0">Yes</div>
+                <div id="word-no" class="word-button" tabindex="0">No</div>
+                <div id="word-wrong" class="word-button" tabindex="0">Wrong</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        const appState = {
+            currentSentence: '',
+            currentWord: '',
+            zoomLevel: 'normal', // small, normal, large
+            lastError: null
+        };
+
+        // DOM Elements
+        const sentenceDisplay = document.getElementById('sentence-display');
+        const appContainer = document.getElementById('app-container');
+        const errorIndicator = document.getElementById('error-indicator');
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            loadSavedState();
+        });
+
+        function initializeApp() {
+            // Set up keyboard functionality
+            setupKeyboard();
+            
+            // Set up common word buttons
+            setupCommonWords();
+            
+            // Set up assistant controls
+            setupAssistantControls();
+            
+            // Set up keyboard navigation
+            setupKeyboardNavigation();
+        }
+
+        function loadSavedState() {
+            try {
+                // Load zoom level from localStorage
+                const savedZoom = localStorage.getItem('zoomLevel');
+                if (savedZoom) {
+                    appState.zoomLevel = savedZoom;
+                    updateZoomLevel();
+                }
+                
+                // Load last sentence if exists
+                const savedSentence = localStorage.getItem('currentSentence');
+                if (savedSentence) {
+                    appState.currentSentence = savedSentence;
+                    updateSentenceDisplay();
+                }
+            } catch (error) {
+                showError('Error loading saved state');
+                console.error('Error loading saved state:', error);
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('zoomLevel', appState.zoomLevel);
+                localStorage.setItem('currentSentence', appState.currentSentence);
+            } catch (error) {
+                showError('Error saving state');
+                console.error('Error saving state:', error);
+            }
+        }
+
+        function setupKeyboard() {
+            const keys = document.querySelectorAll('.key');
+            
+            keys.forEach(key => {
+                // Touch support
+                key.addEventListener('touchstart', function(e) {
+                    e.preventDefault(); // Prevent double tap zoom
+                    const keyValue = this.getAttribute('data-key');
+                    addLetterToSentence(keyValue);
+                    animateKeyPress(this);
+                });
+                
+                // Mouse support for non-touch devices
+                key.addEventListener('click', function(e) {
+                    const keyValue = this.getAttribute('data-key');
+                    addLetterToSentence(keyValue);
+                    animateKeyPress(this);
+                });
+            });
+        }
+        
+        function setupCommonWords() {
+            const wordButtons = document.querySelectorAll('.word-button');
+            
+            wordButtons.forEach(button => {
+                // Touch support
+                button.addEventListener('touchstart', function(e) {
+                    e.preventDefault(); // Prevent double tap zoom
+                    const word = this.textContent;
+                    addWordToSentence(word);
+                    animateKeyPress(this);
+                });
+                
+                // Mouse support for non-touch devices
+                button.addEventListener('click', function(e) {
+                    const word = this.textContent;
+                    addWordToSentence(word);
+                    animateKeyPress(this);
+                });
+            });
+        }
+        
+        function setupAssistantControls() {
+            // Clear button
+            document.getElementById('btn-clear').addEventListener('click', function() {
+                clearSentence();
+            });
+            
+            // Delete button
+            document.getElementById('btn-delete').addEventListener('click', function() {
+                deleteLastCharacter();
+            });
+            
+            // Speak button
+            document.getElementById('btn-speak').addEventListener('click', function() {
+                speakSentence();
+            });
+            
+            // Zoom controls
+            document.getElementById('btn-zoom-in').addEventListener('click', function() {
+                zoomIn();
+            });
+            
+            document.getElementById('btn-zoom-out').addEventListener('click', function() {
+                zoomOut();
+            });
+        }
+        
+        function setupKeyboardNavigation() {
+            // Handle physical keyboard input
+            document.addEventListener('keydown', function(e) {
+                // Get the pressed key
+                const key = e.key.toUpperCase();
+                
+                // Check if it's a letter, space, or period
+                if (/^[A-Z]$/.test(key) || key === ' ' || key === '.') {
+                    // Find and activate the corresponding on-screen key
+                    const onScreenKey = document.querySelector(`.key[data-key="${key === ' ' ? ' ' : key}"]`);
+                    if (onScreenKey) {
+                        addLetterToSentence(key === ' ' ? ' ' : key);
+                        animateKeyPress(onScreenKey);
+                    }
+                } else if (key === 'BACKSPACE') {
+                    deleteLastCharacter();
+                    animateKeyPress(document.getElementById('btn-delete'));
+                } else if (key === 'ENTER') {
+                    addLetterToSentence(' ');
+                    animateKeyPress(document.querySelector('.key.space'));
+                }
+            });
+        }
+
+        function addLetterToSentence(letter) {
+            appState.currentSentence += letter;
+            updateSentenceDisplay();
+            saveState();
+        }
+        
+        function addWordToSentence(word) {
+            // Check if we need to add a space before the word
+            if (appState.currentSentence.length > 0 && 
+                !appState.currentSentence.endsWith(' ')) {
+                appState.currentSentence += ' ';
+            }
+            
+            appState.currentSentence += word;
+            
+            // Add a space after the word
+            appState.currentSentence += ' ';
+            
+            updateSentenceDisplay();
+            saveState();
+        }
+        
+        function deleteLastCharacter() {
+            if (appState.currentSentence.length > 0) {
+                appState.currentSentence = appState.currentSentence.slice(0, -1);
+                updateSentenceDisplay();
+                saveState();
+            }
+        }
+        
+        function clearSentence() {
+            appState.currentSentence = '';
+            updateSentenceDisplay();
+            saveState();
+        }
+        
+        function updateSentenceDisplay() {
+            sentenceDisplay.textContent = appState.currentSentence;
+            // Auto-scroll to bottom if content overflows
+            sentenceDisplay.scrollTop = sentenceDisplay.scrollHeight;
+        }
+        
+        function speakSentence() {
+            try {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(appState.currentSentence);
+                    utterance.lang = 'en-GB'; // UK English
+                    window.speechSynthesis.speak(utterance);
+                } else {
+                    showError('Speech synthesis not supported');
+                }
+            } catch (error) {
+                showError('Error with speech synthesis');
+                console.error('Speech synthesis error:', error);
+            }
+        }
+        
+        function zoomIn() {
+            if (appState.zoomLevel === 'small') {
+                appState.zoomLevel = 'normal';
+            } else if (appState.zoomLevel === 'normal') {
+                appState.zoomLevel = 'large';
+            }
+            updateZoomLevel();
+            saveState();
+        }
+        
+        function zoomOut() {
+            if (appState.zoomLevel === 'large') {
+                appState.zoomLevel = 'normal';
+            } else if (appState.zoomLevel === 'normal') {
+                appState.zoomLevel = 'small';
+            }
+            updateZoomLevel();
+            saveState();
+        }
+        
+        function updateZoomLevel() {
+            // Remove all zoom classes
+            appContainer.classList.remove('zoom-small', 'zoom-large');
+            
+            // Add appropriate class
+            if (appState.zoomLevel === 'small') {
+                appContainer.classList.add('zoom-small');
+            } else if (appState.zoomLevel === 'large') {
+                appContainer.classList.add('zoom-large');
+            }
+        }
+        
+        function animateKeyPress(element) {
+            // Add active class
+            element.classList.add('active');
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                element.classList.remove('active');
+            }, 200);
+        }
+        
+        function showError(message) {
+            appState.lastError = message;
+            
+            // Show error indicator
+            errorIndicator.style.display = 'block';
+            
+            // Log error to console
+            console.error('App Error:', message);
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                errorIndicator.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
